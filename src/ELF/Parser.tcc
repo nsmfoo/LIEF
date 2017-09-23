@@ -711,9 +711,7 @@ uint32_t Parser::nb_dynsym_gnu_hash(void) const {
 
       dl_hash_1 = hash_value | 1;
       dl_hash_2 = hash_value & ~uint32_t{1};
-
-      nsyms++;
-    } while ((gnuhash.check(dl_hash_1) or gnuhash.check(dl_hash_2)) and (hash_value & 1) == 0); // "It is set to 1 when a symbol is the last symbol in a given hash bucket"
+    } while ((gnuhash.check_bucket(dl_hash_1) or gnuhash.check_bucket(dl_hash_2)) and (hash_value & 1) == 0); // "It is set to 1 when a symbol is the last symbol in a given hash bucket"
 
     nbsym_buckets[i] = buckets[i] + nsyms;
   }
